@@ -11,10 +11,11 @@ namespace ApontmentoWebAPI.Classes
     {
         public OrderList()
         {
-            this.Orders = new Orders();
+            this.Orders = new List<Orders>();
         }
         //propriedade ou array???
         [JsonProperty(propertyName: "orders")]
-        public Orders Orders { get; set; }
+        public List<Orders> Orders { get; set; }
     }
+
 }

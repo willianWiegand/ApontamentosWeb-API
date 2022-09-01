@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace ApontmentoWebAPI.Classes
 {
@@ -17,8 +18,8 @@ namespace ApontmentoWebAPI.Classes
         public string Image { get; set; }
         [JsonProperty(propertyName: "cycleTime")]
         public double CycleTime { get; set; }
-        //[JsonProperty(propertyName: "materials")]
-        //public Materials Materials { get; set; }
+        [JsonProperty(propertyName: "materials")]
+        public List<Materials> Materials { get; set; }
 
     }
 }
