@@ -29,6 +29,7 @@ namespace ApontmentoWebAPI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormApontamento));
             this.btnPoint = new System.Windows.Forms.Button();
             this.lstOP = new System.Windows.Forms.ListBox();
@@ -41,6 +42,7 @@ namespace ApontmentoWebAPI
             this.picProduct = new System.Windows.Forms.PictureBox();
             this.lblStart = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).BeginInit();
             this.SuspendLayout();
@@ -83,6 +85,7 @@ namespace ApontmentoWebAPI
             this.lstMaterial.Name = "lstMaterial";
             this.lstMaterial.Size = new System.Drawing.Size(199, 100);
             this.lstMaterial.TabIndex = 2;
+            this.lstMaterial.SelectedIndexChanged += new System.EventHandler(this.lstMaterial_SelectedIndexChanged);
             // 
             // lblOP
             // 
@@ -128,9 +131,15 @@ namespace ApontmentoWebAPI
             // 
             this.nudQuantity.Location = new System.Drawing.Point(408, 331);
             this.nudQuantity.Margin = new System.Windows.Forms.Padding(4);
+            this.nudQuantity.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.nudQuantity.Name = "nudQuantity";
             this.nudQuantity.Size = new System.Drawing.Size(92, 22);
             this.nudQuantity.TabIndex = 3;
+            this.nudQuantity.ValueChanged += new System.EventHandler(this.nudQuantity_ValueChanged);
             // 
             // picProduct
             // 
@@ -140,6 +149,7 @@ namespace ApontmentoWebAPI
             this.picProduct.Size = new System.Drawing.Size(200, 106);
             this.picProduct.TabIndex = 7;
             this.picProduct.TabStop = false;
+            this.picProduct.Tag = "a";
             // 
             // lblStart
             // 
@@ -160,6 +170,12 @@ namespace ApontmentoWebAPI
             this.label1.Size = new System.Drawing.Size(99, 17);
             this.label1.TabIndex = 8;
             this.label1.Text = "Selecionar OP";
+            // 
+            // btnTimer
+            // 
+            this.btnTimer.Enabled = true;
+            this.btnTimer.Interval = 500;
+            this.btnTimer.Tick += new System.EventHandler(this.btnTimer_Tick);
             // 
             // FormApontamento
             // 
@@ -206,6 +222,7 @@ namespace ApontmentoWebAPI
         private System.Windows.Forms.PictureBox picProduct;
         private System.Windows.Forms.Label lblStart;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer btnTimer;
     }
 }
 

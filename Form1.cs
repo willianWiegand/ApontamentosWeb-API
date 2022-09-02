@@ -6,11 +6,17 @@ using System.Windows.Forms;
 
 namespace ApontmentoWebAPI
 {
+
+
     public partial class FormApontamento : Form
     {
+        private DateTime _startTimer = DateTime.MinValue;
+        private bool _runningTimer = false;
+        public OrderList orderList = new OrderList();
         public FormApontamento()
         {
             InitializeComponent();
+
         }
 
         // public string jsonSchema = "{\"type\": \"object\",\"properties\": {\"orders\": {\"type\": \"array\",\"items\": [{\"type\": \"object\",\"properties\": {\"order\": {\"type\": \"string\"},\"quantity\": {\"type\": \"number\"},\"productCode\": {\"type\": \"string\"},\"productDescription\": {\"type\": \"string\"},\"image\": {\"type\": \"string\"},\"cycleTime\": {\"type\": \"number\"},\"materials\": {\"type\": \"array\",\"items\": [{\"type\": \"object\",\"properties\": {\"materialCode\": { \"type\":\"string\"},"materialDescription": { "type":"string"}},"required": ["materialCode","materialDescription"]}]}},"required": ["order","quantityproductCode","productDescription","image","cycleTime","materials"]}]}}};
@@ -27,19 +33,15 @@ namespace ApontmentoWebAPI
             {
                 var response = repply.Content.ReadAsStringAsync().Result;
 
-                OrderList orderList = JsonConvert.DeserializeObject<OrderList>(response);
-                label1.Text = repply.Content.ReadAsStringAsync().Result;
-                //this.lstOP.DataSource = orderList;
+                orderList = JsonConvert.DeserializeObject<OrderList>(response);
+                               //this.lstOP.DataSource = orderList;
                 lstOP.Items.Clear();
                 //lstOP.Items.AddRange(new OrderList[] { JsonConvert.DeserializeObject<OrderList>(response) });
-               var c = orderList.Orders.Count;
+                var c = orderList.Orders.Count;
 
-                for (int i = 1; i < c; i++)
+                for (int i = 0; i < c; i++)
                 {
                     string str = orderList.Orders[i].Order;
-                //    //string o2 = String.Format("{0}", orderList.Orders.Order.);
-                //    string ordr = orderList.Orders.[1].Order;
-                //    MessageBox.Show(ordr);
                     lstOP.Items.Add(str);
 
                 }
@@ -65,16 +67,11 @@ namespace ApontmentoWebAPI
 
         private void lstOP_SelectedIndexChanged(object sender, EventArgs e)
         {
+            label1.Text = orderList.Orders[lstOP.SelectedIndex].CycleTime.ToString();
             btnPoint.Enabled = false;
             DateTime instanteSelecao = DateTime.Now;
-            //            if (btnTimer.Enabled)
-            //            {
-            //                btnTimer.Dispose();
-            //            }
-            //            CreateTimer();
-            //            btnTimer.Interval = 3000;
-            //            btnTimer.Tick += new EventHandler(Time_Tick);
-            //            btnTimer.Start();
+            _startTimer = instanteSelecao;
+            _runningTimer = true;
 
 
 
@@ -83,17 +80,44 @@ namespace ApontmentoWebAPI
             string inicioSelecao = "Início: " + instanteSelecao;
             lblStart.Text = inicioSelecao;
             lstMaterial.Items.Clear();
+            int selectedOP = lstOP.SelectedIndex;
+            nudQuantity.Value = orderList.Orders[selectedOP].Quantity;
+            int c = orderList.Orders[selectedOP].Materials.Count;
+
+            for (int i = 0; i < c; i++)
+            {
+                string str = orderList.Orders[selectedOP].Materials[i].MaterialCode;
+                lstMaterial.Items.Add(str);
+            }
+
 
         }
 
-        //        public void CreateTimer()
-        //        {
-        //           public Timer btnTimer = new Timer();
-        //    }
+        private void lstMaterial_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedOP = lstOP.SelectedIndex;
 
-        //    public void Time_Tick(object sender, EventArgs e)
-        //    {
-        //        this.btnPoint.Enabled = true;
-        //    }
+        }
+        private void nudQuantity_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTimer_Tick(object sender, EventArgs e)
+        {
+            if (!_runningTimer)
+                return;
+
+            DateTime dateNow = DateTime.Now;
+            TimeSpan elapsedTime = dateNow.Subtract(_startTimer);
+            var limit = orderList.Orders[lstOP.SelectedIndex].CycleTime;
+
+            if (elapsedTime.TotalSeconds > limit)
+            {
+                btnPoint.Enabled = true;
+                _runningTimer = false;
+            }
+        }
+
     }
 }
