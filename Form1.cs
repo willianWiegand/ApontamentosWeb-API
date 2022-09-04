@@ -57,7 +57,7 @@ namespace ApontmentoWebAPI
 
         private void lstOP_SelectedIndexChanged(object sender, EventArgs e)
         {
-            label1.Text = orderList.Orders[lstOP.SelectedIndex].CycleTime.ToString();
+            //label1.Text = orderList.Orders[lstOP.SelectedIndex].CycleTime.ToString();
             btnPoint.Enabled = false;
             opSelectedInstant = DateTime.Now;
             _startTimer = opSelectedInstant;
@@ -65,10 +65,10 @@ namespace ApontmentoWebAPI
 
 
 
-            string produtoSelecionado = "Produto Selecionado: " + lstOP.SelectedItem;
+            string produtoSelecionado = "Produto Selecionado: " + orderList.Orders[lstOP.SelectedIndex].ProductCode;
             lblProduct.Text = produtoSelecionado;
             string inicioSelecao = "Início: " + opSelectedInstant;
-            lblStart.Text = inicioSelecao;
+            //lblStart.Text = inicioSelecao;
             lstMaterial.Items.Clear();
             int selectedOP = lstOP.SelectedIndex;
             nudQuantity.Value = (decimal)orderList.Orders[selectedOP].Quantity;
@@ -80,7 +80,8 @@ namespace ApontmentoWebAPI
                 lstMaterial.Items.Add(str);
             }
 
-
+            int imageID = Convert.ToInt16(orderList.Orders[selectedOP].Image.Substring(6,1));
+            picProduct.Image = imageList.Images[imageID];
         }
 
         private void lstMaterial_SelectedIndexChanged(object sender, EventArgs e)
