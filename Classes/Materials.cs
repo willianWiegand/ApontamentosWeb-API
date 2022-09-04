@@ -10,4 +10,6 @@ namespace ApontmentoWebAPI.Classes
         public string MaterialDescription { get; set; }
 
     }
+    //public override string ToString() => MaterialCode;
+   
 }
