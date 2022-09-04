@@ -12,14 +12,13 @@ namespace ApontmentoWebAPI
     {
         private DateTime _startTimer = DateTime.MinValue;
         private bool _runningTimer = false;
+        public DateTime opSelectedInstant;
         public OrderList orderList = new OrderList();
         public FormApontamento()
         {
             InitializeComponent();
 
         }
-
-        // public string jsonSchema = "{\"type\": \"object\",\"properties\": {\"orders\": {\"type\": \"array\",\"items\": [{\"type\": \"object\",\"properties\": {\"order\": {\"type\": \"string\"},\"quantity\": {\"type\": \"number\"},\"productCode\": {\"type\": \"string\"},\"productDescription\": {\"type\": \"string\"},\"image\": {\"type\": \"string\"},\"cycleTime\": {\"type\": \"number\"},\"materials\": {\"type\": \"array\",\"items\": [{\"type\": \"object\",\"properties\": {\"materialCode\": { \"type\":\"string\"},"materialDescription": { "type":"string"}},"required": ["materialCode","materialDescription"]}]}},"required": ["order","quantityproductCode","productDescription","image","cycleTime","materials"]}]}}};
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -34,9 +33,7 @@ namespace ApontmentoWebAPI
                 var response = repply.Content.ReadAsStringAsync().Result;
 
                 orderList = JsonConvert.DeserializeObject<OrderList>(response);
-                               //this.lstOP.DataSource = orderList;
                 lstOP.Items.Clear();
-                //lstOP.Items.AddRange(new OrderList[] { JsonConvert.DeserializeObject<OrderList>(response) });
                 var c = orderList.Orders.Count;
 
                 for (int i = 0; i < c; i++)
@@ -45,13 +42,6 @@ namespace ApontmentoWebAPI
                     lstOP.Items.Add(str);
 
                 }
-                // Orders teste = orderList.Orders.foreach (Orders item in collection)
-                //{
-                //   lstOP.Items.Add(item.order);
-
-
-                //(String.Format(orderList.Orders[c].order));
-                //}
 
             }
             else
@@ -69,19 +59,19 @@ namespace ApontmentoWebAPI
         {
             label1.Text = orderList.Orders[lstOP.SelectedIndex].CycleTime.ToString();
             btnPoint.Enabled = false;
-            DateTime instanteSelecao = DateTime.Now;
-            _startTimer = instanteSelecao;
+            opSelectedInstant = DateTime.Now;
+            _startTimer = opSelectedInstant;
             _runningTimer = true;
 
 
 
             string produtoSelecionado = "Produto Selecionado: " + lstOP.SelectedItem;
             lblProduct.Text = produtoSelecionado;
-            string inicioSelecao = "Início: " + instanteSelecao;
+            string inicioSelecao = "Início: " + opSelectedInstant;
             lblStart.Text = inicioSelecao;
             lstMaterial.Items.Clear();
             int selectedOP = lstOP.SelectedIndex;
-            nudQuantity.Value = orderList.Orders[selectedOP].Quantity;
+            nudQuantity.Value = (decimal)orderList.Orders[selectedOP].Quantity;
             int c = orderList.Orders[selectedOP].Materials.Count;
 
             for (int i = 0; i < c; i++)
@@ -119,5 +109,36 @@ namespace ApontmentoWebAPI
             }
         }
 
+        private void btnPoint_Click(object sender, EventArgs e)
+        {
+            DateTime pointInstant = DateTime.Now;
+            Production production = new Production
+            {
+                Email = "willian.wiegand@gmail.com",
+                Order = lstOP.SelectedItem.ToString(),
+                Quantity = (double)nudQuantity.Value,
+                MaterialCode = orderList.Orders[lstOP.SelectedIndex].Materials[lstMaterial.SelectedIndex].MaterialCode,
+                ProductionDate = pointInstant.ToString("yyyy-MM-dd"),
+                ProductionTime = pointInstant.ToString("T"),
+                CycleTime = (double)pointInstant.Subtract(opSelectedInstant).Seconds
+
+
+            };
+            string sendProduction = JsonConvert.SerializeObject(production);
+
+            MessageBox.Show(sendProduction);
+            string stringURL = "http://demo-coleta.brazilsouth.cloudapp.azure.com:2070/api/orders/SetProduction";
+
+            HttpClient client = new HttpClient();
+            var httpContent = new StringContent(sendProduction, System.Text.Encoding.UTF8, "application/json");
+            var postReturn = client.PostAsync(stringURL, httpContent).Result;
+            if (postReturn.IsSuccessStatusCode)
+            {
+                var response = postReturn.Content.ReadAsStringAsync().Result;
+
+                MessageBox.Show(response);
+            }
+
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace ApontmentoWebAPI.Classes
         [JsonProperty(propertyName: "order")]
         public string Order { get; set; }
         [JsonProperty(propertyName: "quantity")]
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
         [JsonProperty(propertyName: "productCode")]
         public string ProductCode { get; set; }
         [JsonProperty(propertyName: "productDescription")]
