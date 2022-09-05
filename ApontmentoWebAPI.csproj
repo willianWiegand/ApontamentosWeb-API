@@ -64,11 +64,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\EnumAPIType.cs" />
     <Compile Include="Classes\Materials.cs" />
     <Compile Include="Classes\OrderList.cs" />
     <Compile Include="Classes\Return .cs" />
     <Compile Include="Classes\Production.cs" />
     <Compile Include="Classes\Orders.cs" />
+    <Compile Include="Classes\WebAPI.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
