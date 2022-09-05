@@ -32,8 +32,8 @@ namespace ApontmentoWebAPI
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormApontamento));
             this.btnPoint = new System.Windows.Forms.Button();
-            this.lstOP = new System.Windows.Forms.ListBox();
-            this.lstMaterial = new System.Windows.Forms.ListBox();
+            this.cbxOP = new System.Windows.Forms.ComboBox();
+            this.cbxMaterial = new System.Windows.Forms.ComboBox();
             this.lblOP = new System.Windows.Forms.Label();
             this.lblMaterial = new System.Windows.Forms.Label();
             this.lblQuantity = new System.Windows.Forms.Label();
@@ -49,8 +49,8 @@ namespace ApontmentoWebAPI
             // btnPoint
             // 
             this.btnPoint.Enabled = false;
-            this.btnPoint.Location = new System.Drawing.Point(508, 327);
-            this.btnPoint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPoint.Location = new System.Drawing.Point(287, 153);
+            this.btnPoint.Margin = new System.Windows.Forms.Padding(5);
             this.btnPoint.Name = "btnPoint";
             this.btnPoint.Size = new System.Drawing.Size(100, 28);
             this.btnPoint.TabIndex = 0;
@@ -58,34 +58,32 @@ namespace ApontmentoWebAPI
             this.btnPoint.UseVisualStyleBackColor = true;
             this.btnPoint.Click += new System.EventHandler(this.btnPoint_Click);
             // 
-            // lstOP
+            // cbxOP
             // 
-            this.lstOP.FormattingEnabled = true;
-            this.lstOP.ItemHeight = 16;
-            this.lstOP.Items.AddRange(new object[] {
+            this.cbxOP.FormattingEnabled = true;
+            this.cbxOP.Items.AddRange(new object[] {
             "aaaa1",
             "aaaa2",
             "bbbb1"});
-            this.lstOP.Location = new System.Drawing.Point(13, 32);
-            this.lstOP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.lstOP.Name = "lstOP";
-            this.lstOP.Size = new System.Drawing.Size(383, 324);
-            this.lstOP.TabIndex = 1;
-            this.lstOP.SelectedIndexChanged += new System.EventHandler(this.lstOP_SelectedIndexChanged);
+            this.cbxOP.Location = new System.Drawing.Point(17, 39);
+            this.cbxOP.Margin = new System.Windows.Forms.Padding(5);
+            this.cbxOP.Name = "cbxOP";
+            this.cbxOP.Size = new System.Drawing.Size(383, 24);
+            this.cbxOP.TabIndex = 1;
+            this.cbxOP.SelectedIndexChanged += new System.EventHandler(this.cbxOP_SelectedIndexChanged);
             // 
-            // lstMaterial
+            // cbxMaterial
             // 
-            this.lstMaterial.FormattingEnabled = true;
-            this.lstMaterial.ItemHeight = 16;
-            this.lstMaterial.Items.AddRange(new object[] {
-            "a",
-            "b"});
-            this.lstMaterial.Location = new System.Drawing.Point(408, 206);
-            this.lstMaterial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.lstMaterial.Name = "lstMaterial";
-            this.lstMaterial.Size = new System.Drawing.Size(199, 100);
-            this.lstMaterial.TabIndex = 2;
-            this.lstMaterial.SelectedIndexChanged += new System.EventHandler(this.lstMaterial_SelectedIndexChanged);
+            this.cbxMaterial.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cbxMaterial.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbxMaterial.FormattingEnabled = true;
+            this.cbxMaterial.ItemHeight = 16;
+            this.cbxMaterial.Location = new System.Drawing.Point(14, 114);
+            this.cbxMaterial.Margin = new System.Windows.Forms.Padding(5);
+            this.cbxMaterial.Name = "cbxMaterial";
+            this.cbxMaterial.Size = new System.Drawing.Size(199, 24);
+            this.cbxMaterial.Sorted = true;
+            this.cbxMaterial.TabIndex = 2;
             // 
             // lblOP
             // 
@@ -100,7 +98,7 @@ namespace ApontmentoWebAPI
             // lblMaterial
             // 
             this.lblMaterial.AutoSize = true;
-            this.lblMaterial.Location = new System.Drawing.Point(404, 186);
+            this.lblMaterial.Location = new System.Drawing.Point(14, 78);
             this.lblMaterial.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMaterial.Name = "lblMaterial";
             this.lblMaterial.Size = new System.Drawing.Size(129, 17);
@@ -110,7 +108,7 @@ namespace ApontmentoWebAPI
             // lblQuantity
             // 
             this.lblQuantity.AutoSize = true;
-            this.lblQuantity.Location = new System.Drawing.Point(404, 310);
+            this.lblQuantity.Location = new System.Drawing.Point(16, 159);
             this.lblQuantity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblQuantity.Name = "lblQuantity";
             this.lblQuantity.Size = new System.Drawing.Size(150, 17);
@@ -120,8 +118,8 @@ namespace ApontmentoWebAPI
             // lblProduct
             // 
             this.lblProduct.AutoSize = true;
-            this.lblProduct.Location = new System.Drawing.Point(405, 11);
-            this.lblProduct.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblProduct.Location = new System.Drawing.Point(410, 17);
+            this.lblProduct.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblProduct.Name = "lblProduct";
             this.lblProduct.Size = new System.Drawing.Size(144, 17);
             this.lblProduct.TabIndex = 0;
@@ -129,8 +127,8 @@ namespace ApontmentoWebAPI
             // 
             // nudQuantity
             // 
-            this.nudQuantity.Location = new System.Drawing.Point(408, 331);
-            this.nudQuantity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nudQuantity.Location = new System.Drawing.Point(175, 157);
+            this.nudQuantity.Margin = new System.Windows.Forms.Padding(5);
             this.nudQuantity.Maximum = new decimal(new int[] {
             500,
             0,
@@ -139,14 +137,13 @@ namespace ApontmentoWebAPI
             this.nudQuantity.Name = "nudQuantity";
             this.nudQuantity.Size = new System.Drawing.Size(92, 22);
             this.nudQuantity.TabIndex = 3;
-            this.nudQuantity.ValueChanged += new System.EventHandler(this.nudQuantity_ValueChanged);
             // 
             // picProduct
             // 
-            this.picProduct.Location = new System.Drawing.Point(408, 32);
-            this.picProduct.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.picProduct.Location = new System.Drawing.Point(413, 39);
+            this.picProduct.Margin = new System.Windows.Forms.Padding(5);
             this.picProduct.Name = "picProduct";
-            this.picProduct.Size = new System.Drawing.Size(200, 150);
+            this.picProduct.Size = new System.Drawing.Size(179, 142);
             this.picProduct.TabIndex = 7;
             this.picProduct.TabStop = false;
             this.picProduct.Tag = "a";
@@ -169,24 +166,25 @@ namespace ApontmentoWebAPI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 369);
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.ClientSize = new System.Drawing.Size(601, 188);
             this.Controls.Add(this.picProduct);
             this.Controls.Add(this.nudQuantity);
             this.Controls.Add(this.lblProduct);
             this.Controls.Add(this.lblQuantity);
             this.Controls.Add(this.lblMaterial);
             this.Controls.Add(this.lblOP);
-            this.Controls.Add(this.lstMaterial);
-            this.Controls.Add(this.lstOP);
+            this.Controls.Add(this.cbxMaterial);
+            this.Controls.Add(this.cbxOP);
             this.Controls.Add(this.btnPoint);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.Name = "FormApontamento";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Apontamento API";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).EndInit();
@@ -198,8 +196,8 @@ namespace ApontmentoWebAPI
         #endregion
 
         private System.Windows.Forms.Button btnPoint;
-        private System.Windows.Forms.ListBox lstOP;
-        private System.Windows.Forms.ListBox lstMaterial;
+        private System.Windows.Forms.ComboBox cbxOP;
+        private System.Windows.Forms.ComboBox cbxMaterial;
         private System.Windows.Forms.Label lblOP;
         private System.Windows.Forms.Label lblMaterial;
         private System.Windows.Forms.Label lblQuantity;
