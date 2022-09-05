@@ -57,7 +57,7 @@ namespace ApontmentoWebAPI
 
         private void cbxOP_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (cbxOP.SelectedIndex == -1) return;
             btnPoint.Enabled = false;
             opSelectedInstant = DateTime.Now;
             _startTimer = opSelectedInstant;
@@ -94,7 +94,7 @@ namespace ApontmentoWebAPI
 
             DateTime dateNow = DateTime.Now;
             TimeSpan elapsedTime = dateNow.Subtract(_startTimer);
-            var limit = orderList.Orders[cbxOP.SelectedIndex].CycleTime/10;
+            var limit = orderList.Orders[cbxOP.SelectedIndex].CycleTime / 10;
 
             if (elapsedTime.TotalSeconds > limit)
             {
@@ -139,11 +139,30 @@ namespace ApontmentoWebAPI
                     + "\nDescrição: "
                     + msgReturn.Description;
                 MessageBox.Show(stringReturn);
-                this.Close();
-                
+                //ClearForm();
+                Application.Restart();
 
             }
 
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+            //ClearForm();
+        }
+
+        //private void ClearForm()
+        //{
+        //    _runningTimer = false;
+        //    cbxOP.SelectedIndex = -1;
+        //    cbxMaterial.SelectedIndex = -1;
+        //    nudQuantity.Value = 0;
+        //    picProduct.Image = null;
+        //    lblProduct.Text = "Nenhum Produto Selecionado";
+        //    btnPoint.Enabled = false;
+        //    this.ProcessTabKey(true);
+        //}
+
+        
     }
 }
