@@ -33,13 +33,13 @@ namespace ApontmentoWebAPI
                 var response = repply.Content.ReadAsStringAsync().Result;
 
                 orderList = JsonConvert.DeserializeObject<OrderList>(response);
-                lstOP.Items.Clear();
+                cbxOP.Items.Clear();
                 var c = orderList.Orders.Count;
 
                 for (int i = 0; i < c; i++)
                 {
                     string str = orderList.Orders[i].Order;
-                    lstOP.Items.Add(str);
+                    cbxOP.Items.Add(str);
 
                 }
 
@@ -55,9 +55,9 @@ namespace ApontmentoWebAPI
         }
 
 
-        private void lstOP_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbxOP_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //label1.Text = orderList.Orders[lstOP.SelectedIndex].CycleTime.ToString();
+
             btnPoint.Enabled = false;
             opSelectedInstant = DateTime.Now;
             _startTimer = opSelectedInstant;
@@ -65,34 +65,27 @@ namespace ApontmentoWebAPI
 
 
 
-            string produtoSelecionado = "Produto Selecionado: " + orderList.Orders[lstOP.SelectedIndex].ProductCode;
+            string produtoSelecionado = "Produto Selecionado: " + orderList.Orders[cbxOP.SelectedIndex].ProductCode;
             lblProduct.Text = produtoSelecionado;
             string inicioSelecao = "Início: " + opSelectedInstant;
             //lblStart.Text = inicioSelecao;
-            lstMaterial.Items.Clear();
-            int selectedOP = lstOP.SelectedIndex;
+            cbxMaterial.Items.Clear();
+            int selectedOP = cbxOP.SelectedIndex;
             nudQuantity.Value = (decimal)orderList.Orders[selectedOP].Quantity;
             int c = orderList.Orders[selectedOP].Materials.Count;
 
             for (int i = 0; i < c; i++)
             {
                 string str = orderList.Orders[selectedOP].Materials[i].MaterialCode;
-                lstMaterial.Items.Add(str);
+                cbxMaterial.Items.Add(str);
             }
 
-            int imageID = Convert.ToInt16(orderList.Orders[selectedOP].Image.Substring(6,1));
+            int imageID = Convert.ToInt16(orderList.Orders[selectedOP].Image.Substring(6, 1));
             picProduct.Image = imageList.Images[imageID];
+            cbxMaterial.SelectedIndex = 0;
         }
 
-        private void lstMaterial_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int selectedOP = lstOP.SelectedIndex;
 
-        }
-        private void nudQuantity_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnTimer_Tick(object sender, EventArgs e)
         {
@@ -101,7 +94,7 @@ namespace ApontmentoWebAPI
 
             DateTime dateNow = DateTime.Now;
             TimeSpan elapsedTime = dateNow.Subtract(_startTimer);
-            var limit = orderList.Orders[lstOP.SelectedIndex].CycleTime/10;
+            var limit = orderList.Orders[cbxOP.SelectedIndex].CycleTime/10;
 
             if (elapsedTime.TotalSeconds > limit)
             {
@@ -116,9 +109,9 @@ namespace ApontmentoWebAPI
             Production production = new Production
             {
                 Email = "willian.wiegand@gmail.com",
-                Order = lstOP.SelectedItem.ToString(),
+                Order = cbxOP.SelectedItem.ToString(),
                 Quantity = (double)nudQuantity.Value,
-                MaterialCode = orderList.Orders[lstOP.SelectedIndex].Materials[lstMaterial.SelectedIndex].MaterialCode,
+                MaterialCode = orderList.Orders[cbxOP.SelectedIndex].Materials[cbxMaterial.SelectedIndex].MaterialCode,
                 ProductionDate = pointInstant.ToString("yyyy-MM-dd"),
                 ProductionTime = pointInstant.ToString("T"),
                 CycleTime = (double)pointInstant.Subtract(opSelectedInstant).Seconds
@@ -127,7 +120,7 @@ namespace ApontmentoWebAPI
             };
             string sendProduction = JsonConvert.SerializeObject(production);
 
-            MessageBox.Show(sendProduction);
+            //MessageBox.Show(sendProduction);
             string stringURL = "http://demo-coleta.brazilsouth.cloudapp.azure.com:2070/api/orders/SetProduction";
 
             HttpClient client = new HttpClient();
@@ -136,8 +129,19 @@ namespace ApontmentoWebAPI
             if (postReturn.IsSuccessStatusCode)
             {
                 var response = postReturn.Content.ReadAsStringAsync().Result;
+                Return msgReturn = JsonConvert.DeserializeObject<Return>(response);
+                string stringReturn =
+                    "Retorno de apontamento\n"
+                    + "Status: "
+                    + msgReturn.Status
+                    + "\nType: "
+                    + msgReturn.Type
+                    + "\nDescrição: "
+                    + msgReturn.Description;
+                MessageBox.Show(stringReturn);
+                this.Close();
+                
 
-                MessageBox.Show(response);
             }
 
         }
