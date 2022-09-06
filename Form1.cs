@@ -14,47 +14,20 @@ namespace ApontmentoWebAPI
         private bool _runningTimer = false;
         public DateTime opSelectedInstant;
         public OrderList orderList = new OrderList();
+        
         public FormApontamento()
         {
             InitializeComponent();
 
         }
-
+        //ao carregar o formulário preencher o Combobox com os dados da APIweb
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            string stringURL = "http://demo-coleta.brazilsouth.cloudapp.azure.com:2070/api/orders/GetOrders";
-
-            HttpClient client = new HttpClient();
-
-            var repply = client.GetAsync(stringURL).Result;
-            if (repply.IsSuccessStatusCode)
-            {
-                var response = repply.Content.ReadAsStringAsync().Result;
-
-                orderList = JsonConvert.DeserializeObject<OrderList>(response);
-                cbxOP.Items.Clear();
-                var c = orderList.Orders.Count;
-
-                for (int i = 0; i < c; i++)
-                {
-                    string str = orderList.Orders[i].Order;
-                    cbxOP.Items.Add(str);
-
-                }
-
-            }
-            else
-            {
-
-                MessageBox.Show("Erro ou obter resposta.");
-
-            }
-
-
+            WebAPI consultaAPI = new WebAPI(APIType.OrderList);
+            orderList = consultaAPI.GetOrders(cbxOP);
         }
 
-
+        //ao selecionar uma OP iniciar a contagem do tempo de produção e atualizar os controles com os dados da OP
         private void cbxOP_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbxOP.SelectedIndex == -1) return;
@@ -64,11 +37,7 @@ namespace ApontmentoWebAPI
             _runningTimer = true;
 
 
-
-            string produtoSelecionado = "Produto Selecionado: " + orderList.Orders[cbxOP.SelectedIndex].ProductCode;
-            lblProduct.Text = produtoSelecionado;
-            string inicioSelecao = "Início: " + opSelectedInstant;
-            //lblStart.Text = inicioSelecao;
+            lblProduct.Text = "Produto Selecionado: " + orderList.Orders[cbxOP.SelectedIndex].ProductCode;
             cbxMaterial.Items.Clear();
             int selectedOP = cbxOP.SelectedIndex;
             nudQuantity.Value = (decimal)orderList.Orders[selectedOP].Quantity;
@@ -94,6 +63,7 @@ namespace ApontmentoWebAPI
 
             DateTime dateNow = DateTime.Now;
             TimeSpan elapsedTime = dateNow.Subtract(_startTimer);
+            //limite reduzido para agilizar os testes, em operação normal retirar o /10
             var limit = orderList.Orders[cbxOP.SelectedIndex].CycleTime / 10;
 
             if (elapsedTime.TotalSeconds > limit)
@@ -103,6 +73,7 @@ namespace ApontmentoWebAPI
             }
         }
 
+        //ao enviar um apontamento, montar o objeto com os resultados e enviar pela API
         private void btnPoint_Click(object sender, EventArgs e)
         {
             DateTime pointInstant = DateTime.Now;
@@ -115,34 +86,10 @@ namespace ApontmentoWebAPI
                 ProductionDate = pointInstant.ToString("yyyy-MM-dd"),
                 ProductionTime = pointInstant.ToString("T"),
                 CycleTime = (double)pointInstant.Subtract(opSelectedInstant).Seconds
-
-
             };
-            string sendProduction = JsonConvert.SerializeObject(production);
-
-            //MessageBox.Show(sendProduction);
-            string stringURL = "http://demo-coleta.brazilsouth.cloudapp.azure.com:2070/api/orders/SetProduction";
-
-            HttpClient client = new HttpClient();
-            var httpContent = new StringContent(sendProduction, System.Text.Encoding.UTF8, "application/json");
-            var postReturn = client.PostAsync(stringURL, httpContent).Result;
-            if (postReturn.IsSuccessStatusCode)
-            {
-                var response = postReturn.Content.ReadAsStringAsync().Result;
-                Return msgReturn = JsonConvert.DeserializeObject<Return>(response);
-                string stringReturn =
-                    "Retorno de apontamento\n"
-                    + "Status: "
-                    + msgReturn.Status
-                    + "\nType: "
-                    + msgReturn.Type
-                    + "\nDescrição: "
-                    + msgReturn.Description;
-                MessageBox.Show(stringReturn);
-                //ClearForm();
-                Application.Restart();
-
-            }
+            WebAPI consultaAPI = new WebAPI(APIType.Production);
+            consultaAPI.SendProduction(production);
+            
 
         }
         private void button1_Click(object sender, EventArgs e)
@@ -163,6 +110,6 @@ namespace ApontmentoWebAPI
         //    this.ProcessTabKey(true);
         //}
 
-        
+
     }
 }
