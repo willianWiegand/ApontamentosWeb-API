@@ -42,6 +42,7 @@ namespace ApontmentoWebAPI
             this.picProduct = new System.Windows.Forms.PictureBox();
             this.btnTimer = new System.Windows.Forms.Timer(this.components);
             this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.btnClean = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).BeginInit();
             this.SuspendLayout();
@@ -53,7 +54,7 @@ namespace ApontmentoWebAPI
             this.btnPoint.Margin = new System.Windows.Forms.Padding(5);
             this.btnPoint.Name = "btnPoint";
             this.btnPoint.Size = new System.Drawing.Size(100, 28);
-            this.btnPoint.TabIndex = 0;
+            this.btnPoint.TabIndex = 4;
             this.btnPoint.Text = "Apontar";
             this.btnPoint.UseVisualStyleBackColor = true;
             this.btnPoint.Click += new System.EventHandler(this.btnPoint_Click);
@@ -121,9 +122,9 @@ namespace ApontmentoWebAPI
             this.lblProduct.Location = new System.Drawing.Point(410, 17);
             this.lblProduct.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblProduct.Name = "lblProduct";
-            this.lblProduct.Size = new System.Drawing.Size(144, 17);
+            this.lblProduct.Size = new System.Drawing.Size(197, 17);
             this.lblProduct.TabIndex = 0;
-            this.lblProduct.Text = "Produto Selecionado:";
+            this.lblProduct.Text = "Nenhum Produto Selecionado";
             // 
             // nudQuantity
             // 
@@ -143,7 +144,7 @@ namespace ApontmentoWebAPI
             this.picProduct.Location = new System.Drawing.Point(413, 39);
             this.picProduct.Margin = new System.Windows.Forms.Padding(5);
             this.picProduct.Name = "picProduct";
-            this.picProduct.Size = new System.Drawing.Size(179, 142);
+            this.picProduct.Size = new System.Drawing.Size(194, 142);
             this.picProduct.TabIndex = 7;
             this.picProduct.TabStop = false;
             this.picProduct.Tag = "a";
@@ -162,12 +163,24 @@ namespace ApontmentoWebAPI
             this.imageList.Images.SetKeyName(1, "Imagem 0x00001.png");
             this.imageList.Images.SetKeyName(2, "Imagem 0x00002.png");
             // 
+            // btnClean
+            // 
+            this.btnClean.Location = new System.Drawing.Point(287, 110);
+            this.btnClean.Margin = new System.Windows.Forms.Padding(5);
+            this.btnClean.Name = "btnClean";
+            this.btnClean.Size = new System.Drawing.Size(100, 28);
+            this.btnClean.TabIndex = 5;
+            this.btnClean.Text = "Limpar";
+            this.btnClean.UseVisualStyleBackColor = true;
+            this.btnClean.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormApontamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(601, 188);
+            this.ClientSize = new System.Drawing.Size(615, 188);
+            this.Controls.Add(this.btnClean);
             this.Controls.Add(this.picProduct);
             this.Controls.Add(this.nudQuantity);
             this.Controls.Add(this.lblProduct);
@@ -206,6 +219,7 @@ namespace ApontmentoWebAPI
         private System.Windows.Forms.PictureBox picProduct;
         private System.Windows.Forms.Timer btnTimer;
         private System.Windows.Forms.ImageList imageList;
+        private System.Windows.Forms.Button btnClean;
     }
 }
 
