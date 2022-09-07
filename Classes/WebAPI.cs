@@ -48,11 +48,11 @@ namespace ApontmentoWebAPI.Classes
             }
             else
             {
-                MessageBox.Show("Erro ou obter resposta.");
+                MessageBox.Show("Erro ao obter resposta.");
             }
             return orderList;
         }
-        public void SendProduction(Production production)
+        public bool SendProduction(Production production)
         {
             string sendProduction = JsonConvert.SerializeObject(production);
 
@@ -60,23 +60,20 @@ namespace ApontmentoWebAPI.Classes
 
             var httpContent = new StringContent(sendProduction, System.Text.Encoding.UTF8, "application/json");
             var postReturn = client.PostAsync(stringURL, httpContent).Result;
-            if (postReturn.IsSuccessStatusCode)
-            {
-                var response = postReturn.Content.ReadAsStringAsync().Result;
-                Return msgReturn = JsonConvert.DeserializeObject<Return>(response);
-                string stringReturn =
-                    "Retorno de apontamento\n"
-                    + "Status: "
-                    + msgReturn.Status
-                    + "\nType: "
-                    + msgReturn.Type
-                    + "\nDescrição: "
-                    + msgReturn.Description;
-                MessageBox.Show(stringReturn);
-        
-                Application.Restart();
+            var response = postReturn.Content.ReadAsStringAsync().Result;
+            Return msgReturn = JsonConvert.DeserializeObject<Return>(response);
+            string stringReturn =
+                "Retorno de apontamento\n"
+                + "Status: "
+                + msgReturn.Status
+                + "\nType: "
+                + msgReturn.Type
+                + "\nDescrição: "
+                + msgReturn.Description;
+            MessageBox.Show(stringReturn);
 
-            }
+
+            return postReturn.IsSuccessStatusCode;
         }
     }
 }

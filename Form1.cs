@@ -24,8 +24,8 @@ namespace ApontmentoWebAPI
         //ao carregar o formulário preencher o Combobox com os dados da APIweb
         private void Form1_Load(object sender, EventArgs e)
         {
-            WebAPI consultaAPI = new WebAPI(APIType.OrderList);
-            orderList = consultaAPI.GetOrders(cbxOP);
+            WebAPI getAPI = new WebAPI(APIType.OrderList);
+            orderList = getAPI.GetOrders(cbxOP);
         }
 
         //ao selecionar uma OP iniciar a contagem do tempo de produção e atualizar os controles com os dados da OP
@@ -35,24 +35,22 @@ namespace ApontmentoWebAPI
             btnPoint.Enabled = false;
             _startTimer = DateTime.Now;
             _runningTimer = true;
-            this.toolTip1.SetToolTip(this.lblTimeCounter, "Apontamento habilitado após decorridos " + orderList.Orders[cbxOP.SelectedIndex].CycleTime + "s");
-
-
+            this.toolTip1.SetToolTip(this.lblTimeCounter, "Apontamento habilitado após decorrido o tempo de ciclo padrão");
             lblProduct.Text = "Produto Selecionado: " + orderList.Orders[cbxOP.SelectedIndex].ProductCode;
+            lblCycleTime.Text = "Tempo de ciclo padrão: " + orderList.Orders[cbxOP.SelectedIndex].CycleTime + "s";
+            int imageID = Convert.ToInt16(orderList.Orders[cbxOP.SelectedIndex].Image.Substring(6, 1));
+            picProduct.Image = imageList.Images[imageID];
             cbxMaterial.Items.Clear();
-            int selectedOP = cbxOP.SelectedIndex;
-            nudQuantity.Value = (decimal)orderList.Orders[selectedOP].Quantity;
-            int c = orderList.Orders[selectedOP].Materials.Count;
-
+            int c = orderList.Orders[cbxOP.SelectedIndex].Materials.Count;
+            
             for (int i = 0; i < c; i++)
             {
-                string str = orderList.Orders[selectedOP].Materials[i].MaterialCode;
+                string str = orderList.Orders[cbxOP.SelectedIndex].Materials[i].MaterialCode;
                 cbxMaterial.Items.Add(str);
             }
-
-            int imageID = Convert.ToInt16(orderList.Orders[selectedOP].Image.Substring(6, 1));
-            picProduct.Image = imageList.Images[imageID];
             cbxMaterial.SelectedIndex = 0;
+            nudQuantity.Value = (decimal)orderList.Orders[cbxOP.SelectedIndex].Quantity;
+
         }
 
 
@@ -89,28 +87,29 @@ namespace ApontmentoWebAPI
                 ProductionTime = pointInstant.ToString("T"),
                 CycleTime = (double)pointInstant.Subtract(opSelectedInstant).Seconds
             };
-            WebAPI consultaAPI = new WebAPI(APIType.Production);
-            consultaAPI.SendProduction(production);
-
+            WebAPI postAPI = new WebAPI(APIType.Production);
+            bool ok = postAPI.SendProduction(production);
+            if (ok) ClearForm();
 
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            Application.Restart();
-            //ClearForm();
+            ClearForm();
         }
 
-        //private void ClearForm()
-        //{
-        //    _runningTimer = false;
-        //    cbxOP.SelectedIndex = -1;
-        //    cbxMaterial.SelectedIndex = -1;
-        //    nudQuantity.Value = 0;
-        //    picProduct.Image = null;
-        //    lblProduct.Text = "Nenhum Produto Selecionado";
-        //    btnPoint.Enabled = false;
-        //    this.ProcessTabKey(true);
-        //}
+        public void ClearForm()
+        {
+            _runningTimer = false;
+            cbxOP.SelectedIndex = -1;
+            cbxMaterial.SelectedIndex = -1;
+            nudQuantity.Value = 0;
+            picProduct.Image = null;
+            lblProduct.Text = "Nenhum Produto Selecionado";
+            lblCycleTime.Text = "";
+            lblTimeCounter.Text = "";
+            btnPoint.Enabled = false;
+            this.ProcessTabKey(true);
+        }
 
 
     }

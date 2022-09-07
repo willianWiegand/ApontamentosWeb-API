@@ -107,6 +107,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Factory.ico" />
+    <Content Include="Resources\Imagem 0x00000.png" />
+    <Content Include="Resources\Imagem 0x00001.png" />
+    <Content Include="Resources\Imagem 0x00002.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

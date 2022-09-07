@@ -47,6 +47,7 @@ namespace ApontmentoWebAPI
             this.btnClean = new System.Windows.Forms.Button();
             this.lblTimeCounter = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblCycleTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).BeginInit();
             this.SuspendLayout();
@@ -54,25 +55,27 @@ namespace ApontmentoWebAPI
             // btnPoint
             // 
             this.btnPoint.Enabled = false;
-            this.btnPoint.Location = new System.Drawing.Point(287, 153);
-            this.btnPoint.Margin = new System.Windows.Forms.Padding(5);
+            this.btnPoint.Location = new System.Drawing.Point(204, 213);
+            this.btnPoint.Margin = new System.Windows.Forms.Padding(4);
             this.btnPoint.Name = "btnPoint";
-            this.btnPoint.Size = new System.Drawing.Size(100, 28);
+            this.btnPoint.Size = new System.Drawing.Size(75, 23);
             this.btnPoint.TabIndex = 4;
-            this.btnPoint.Text = "Apontar";this.btnPoint.UseVisualStyleBackColor = true;
+            this.btnPoint.Text = "Apontar";
+            this.btnPoint.UseVisualStyleBackColor = true;
             this.btnPoint.Click += new System.EventHandler(this.btnPoint_Click);
             // 
             // cbxOP
             // 
+            this.cbxOP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxOP.FormattingEnabled = true;
             this.cbxOP.Items.AddRange(new object[] {
             "aaaa1",
             "aaaa2",
             "bbbb1"});
-            this.cbxOP.Location = new System.Drawing.Point(17, 39);
-            this.cbxOP.Margin = new System.Windows.Forms.Padding(5);
+            this.cbxOP.Location = new System.Drawing.Point(13, 32);
+            this.cbxOP.Margin = new System.Windows.Forms.Padding(4);
             this.cbxOP.Name = "cbxOP";
-            this.cbxOP.Size = new System.Drawing.Size(383, 24);
+            this.cbxOP.Size = new System.Drawing.Size(173, 21);
             this.cbxOP.TabIndex = 1;
             this.cbxOP.SelectedIndexChanged += new System.EventHandler(this.cbxOP_SelectedIndexChanged);
             // 
@@ -80,74 +83,72 @@ namespace ApontmentoWebAPI
             // 
             this.cbxMaterial.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cbxMaterial.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbxMaterial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxMaterial.FormattingEnabled = true;
-            this.cbxMaterial.ItemHeight = 16;
-            this.cbxMaterial.Location = new System.Drawing.Point(14, 114);
-            this.cbxMaterial.Margin = new System.Windows.Forms.Padding(5);
+            this.cbxMaterial.ItemHeight = 13;
+            this.cbxMaterial.Location = new System.Drawing.Point(204, 32);
+            this.cbxMaterial.Margin = new System.Windows.Forms.Padding(4);
             this.cbxMaterial.Name = "cbxMaterial";
-            this.cbxMaterial.Size = new System.Drawing.Size(199, 24);
+            this.cbxMaterial.Size = new System.Drawing.Size(150, 21);
             this.cbxMaterial.Sorted = true;
             this.cbxMaterial.TabIndex = 2;
             // 
             // lblOP
             // 
             this.lblOP.AutoSize = true;
-            this.lblOP.Location = new System.Drawing.Point(16, 11);
-            this.lblOP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblOP.Location = new System.Drawing.Point(12, 9);
             this.lblOP.Name = "lblOP";
-            this.lblOP.Size = new System.Drawing.Size(99, 17);
+            this.lblOP.Size = new System.Drawing.Size(86, 15);
             this.lblOP.TabIndex = 0;
             this.lblOP.Text = "Selecionar OP";
             // 
             // lblMaterial
             // 
             this.lblMaterial.AutoSize = true;
-            this.lblMaterial.Location = new System.Drawing.Point(14, 78);
-            this.lblMaterial.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMaterial.Location = new System.Drawing.Point(201, 9);
             this.lblMaterial.Name = "lblMaterial";
-            this.lblMaterial.Size = new System.Drawing.Size(129, 17);
+            this.lblMaterial.Size = new System.Drawing.Size(114, 15);
             this.lblMaterial.TabIndex = 0;
             this.lblMaterial.Text = "Selecionar Material";
             // 
             // lblQuantity
             // 
             this.lblQuantity.AutoSize = true;
-            this.lblQuantity.Location = new System.Drawing.Point(16, 159);
-            this.lblQuantity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblQuantity.Location = new System.Drawing.Point(201, 67);
             this.lblQuantity.Name = "lblQuantity";
-            this.lblQuantity.Size = new System.Drawing.Size(150, 17);
+            this.lblQuantity.Size = new System.Drawing.Size(130, 15);
             this.lblQuantity.TabIndex = 0;
             this.lblQuantity.Text = "Quantidade Produzida";
             // 
             // lblProduct
             // 
             this.lblProduct.AutoSize = true;
-            this.lblProduct.Location = new System.Drawing.Point(410, 17);
-            this.lblProduct.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblProduct.Location = new System.Drawing.Point(13, 67);
+            this.lblProduct.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProduct.Name = "lblProduct";
-            this.lblProduct.Size = new System.Drawing.Size(197, 17);
+            this.lblProduct.Size = new System.Drawing.Size(173, 15);
             this.lblProduct.TabIndex = 0;
             this.lblProduct.Text = "Nenhum Produto Selecionado";
             // 
             // nudQuantity
             // 
-            this.nudQuantity.Location = new System.Drawing.Point(175, 157);
-            this.nudQuantity.Margin = new System.Windows.Forms.Padding(5);
+            this.nudQuantity.Location = new System.Drawing.Point(204, 86);
+            this.nudQuantity.Margin = new System.Windows.Forms.Padding(4);
             this.nudQuantity.Maximum = new decimal(new int[] {
             500,
             0,
             0,
             0});
             this.nudQuantity.Name = "nudQuantity";
-            this.nudQuantity.Size = new System.Drawing.Size(92, 22);
+            this.nudQuantity.Size = new System.Drawing.Size(69, 20);
             this.nudQuantity.TabIndex = 3;
             // 
             // picProduct
             // 
-            this.picProduct.Location = new System.Drawing.Point(413, 39);
-            this.picProduct.Margin = new System.Windows.Forms.Padding(5);
+            this.picProduct.Location = new System.Drawing.Point(13, 85);
+            this.picProduct.Margin = new System.Windows.Forms.Padding(4);
             this.picProduct.Name = "picProduct";
-            this.picProduct.Size = new System.Drawing.Size(194, 142);
+            this.picProduct.Size = new System.Drawing.Size(171, 129);
             this.picProduct.TabIndex = 7;
             this.picProduct.TabStop = false;
             this.picProduct.Tag = "a";
@@ -168,10 +169,10 @@ namespace ApontmentoWebAPI
             // 
             // btnClean
             // 
-            this.btnClean.Location = new System.Drawing.Point(287, 110);
-            this.btnClean.Margin = new System.Windows.Forms.Padding(5);
+            this.btnClean.Location = new System.Drawing.Point(287, 213);
+            this.btnClean.Margin = new System.Windows.Forms.Padding(4);
             this.btnClean.Name = "btnClean";
-            this.btnClean.Size = new System.Drawing.Size(100, 28);
+            this.btnClean.Size = new System.Drawing.Size(75, 23);
             this.btnClean.TabIndex = 5;
             this.btnClean.Text = "Limpar";
             this.btnClean.UseVisualStyleBackColor = true;
@@ -180,22 +181,31 @@ namespace ApontmentoWebAPI
             // lblTimeCounter
             // 
             this.lblTimeCounter.AutoSize = true;
-            this.lblTimeCounter.Location = new System.Drawing.Point(284, 78);
-            this.lblTimeCounter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTimeCounter.Location = new System.Drawing.Point(201, 194);
             this.lblTimeCounter.Name = "lblTimeCounter";
-            this.lblTimeCounter.Size = new System.Drawing.Size(0, 17);
+            this.lblTimeCounter.Size = new System.Drawing.Size(0, 15);
             this.lblTimeCounter.TabIndex = 0;
             // 
             // toolTip1
             // 
             this.toolTip1.ShowAlways = true;
             // 
+            // lblCycleTime
+            // 
+            this.lblCycleTime.AutoSize = true;
+            this.lblCycleTime.Location = new System.Drawing.Point(13, 218);
+            this.lblCycleTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCycleTime.Name = "lblCycleTime";
+            this.lblCycleTime.Size = new System.Drawing.Size(0, 15);
+            this.lblCycleTime.TabIndex = 0;
+            // 
             // FormApontamento
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(615, 188);
+            this.ClientSize = new System.Drawing.Size(370, 240);
+            this.Controls.Add(this.lblCycleTime);
             this.Controls.Add(this.lblTimeCounter);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.picProduct);
@@ -209,7 +219,7 @@ namespace ApontmentoWebAPI
             this.Controls.Add(this.btnPoint);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FormApontamento";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -239,6 +249,7 @@ namespace ApontmentoWebAPI
         private System.Windows.Forms.Button btnClean;
         private Label lblTimeCounter;
         private ToolTip toolTip1;
+        private Label lblCycleTime;
     }
 }
 
