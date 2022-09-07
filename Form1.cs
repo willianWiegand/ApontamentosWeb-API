@@ -1,8 +1,9 @@
 ﻿using ApontmentoWebAPI.Classes;
 using Newtonsoft.Json;
 using System;
-using System.Net.Http;
+using System.Drawing;
 using System.Windows.Forms;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace ApontmentoWebAPI
 {
@@ -14,7 +15,7 @@ namespace ApontmentoWebAPI
         private bool _runningTimer = false;
         public DateTime opSelectedInstant;
         public OrderList orderList = new OrderList();
-        
+
         public FormApontamento()
         {
             InitializeComponent();
@@ -32,9 +33,9 @@ namespace ApontmentoWebAPI
         {
             if (cbxOP.SelectedIndex == -1) return;
             btnPoint.Enabled = false;
-            opSelectedInstant = DateTime.Now;
-            _startTimer = opSelectedInstant;
+            _startTimer = DateTime.Now;
             _runningTimer = true;
+            this.toolTip1.SetToolTip(this.lblTimeCounter, "Apontamento habilitado após decorridos " + orderList.Orders[cbxOP.SelectedIndex].CycleTime + "s");
 
 
             lblProduct.Text = "Produto Selecionado: " + orderList.Orders[cbxOP.SelectedIndex].ProductCode;
@@ -63,13 +64,14 @@ namespace ApontmentoWebAPI
 
             DateTime dateNow = DateTime.Now;
             TimeSpan elapsedTime = dateNow.Subtract(_startTimer);
+            lblTimeCounter.Text = "Decorridos " + elapsedTime.Seconds + "s";
             //limite reduzido para agilizar os testes, em operação normal retirar o /10
             var limit = orderList.Orders[cbxOP.SelectedIndex].CycleTime / 10;
 
             if (elapsedTime.TotalSeconds > limit)
             {
                 btnPoint.Enabled = true;
-                _runningTimer = false;
+                //_runningTimer = false;
             }
         }
 
@@ -89,7 +91,7 @@ namespace ApontmentoWebAPI
             };
             WebAPI consultaAPI = new WebAPI(APIType.Production);
             consultaAPI.SendProduction(production);
-            
+
 
         }
         private void button1_Click(object sender, EventArgs e)

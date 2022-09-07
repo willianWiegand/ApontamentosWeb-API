@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace ApontmentoWebAPI
 {
     partial class FormApontamento
@@ -43,6 +45,8 @@ namespace ApontmentoWebAPI
             this.btnTimer = new System.Windows.Forms.Timer(this.components);
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.btnClean = new System.Windows.Forms.Button();
+            this.lblTimeCounter = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).BeginInit();
             this.SuspendLayout();
@@ -55,8 +59,7 @@ namespace ApontmentoWebAPI
             this.btnPoint.Name = "btnPoint";
             this.btnPoint.Size = new System.Drawing.Size(100, 28);
             this.btnPoint.TabIndex = 4;
-            this.btnPoint.Text = "Apontar";
-            this.btnPoint.UseVisualStyleBackColor = true;
+            this.btnPoint.Text = "Apontar";this.btnPoint.UseVisualStyleBackColor = true;
             this.btnPoint.Click += new System.EventHandler(this.btnPoint_Click);
             // 
             // cbxOP
@@ -174,12 +177,26 @@ namespace ApontmentoWebAPI
             this.btnClean.UseVisualStyleBackColor = true;
             this.btnClean.Click += new System.EventHandler(this.button1_Click);
             // 
+            // lblTimeCounter
+            // 
+            this.lblTimeCounter.AutoSize = true;
+            this.lblTimeCounter.Location = new System.Drawing.Point(284, 78);
+            this.lblTimeCounter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTimeCounter.Name = "lblTimeCounter";
+            this.lblTimeCounter.Size = new System.Drawing.Size(0, 17);
+            this.lblTimeCounter.TabIndex = 0;
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.ShowAlways = true;
+            // 
             // FormApontamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(615, 188);
+            this.Controls.Add(this.lblTimeCounter);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.picProduct);
             this.Controls.Add(this.nudQuantity);
@@ -220,6 +237,8 @@ namespace ApontmentoWebAPI
         private System.Windows.Forms.Timer btnTimer;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.Button btnClean;
+        private Label lblTimeCounter;
+        private ToolTip toolTip1;
     }
 }
 
