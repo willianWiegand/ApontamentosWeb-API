@@ -44,18 +44,30 @@ namespace ApontmentoWebAPI
             this.picProduct = new System.Windows.Forms.PictureBox();
             this.btnTimer = new System.Windows.Forms.Timer(this.components);
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.btnClean = new System.Windows.Forms.Button();
+            this.btnGetPRoduction = new System.Windows.Forms.Button();
             this.lblTimeCounter = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lblCycleTime = new System.Windows.Forms.Label();
+            this.pnlGetProduction = new System.Windows.Forms.Panel();
+            this.btnBack = new System.Windows.Forms.Button();
+            this.gridGetProduction = new System.Windows.Forms.DataGridView();
+            this.productionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.orderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductionCompleteDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.materialCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cycleTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).BeginInit();
+            this.pnlGetProduction.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridGetProduction)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productionBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // btnPoint
             // 
             this.btnPoint.Enabled = false;
-            this.btnPoint.Location = new System.Drawing.Point(204, 213);
+            this.btnPoint.Location = new System.Drawing.Point(200, 210);
             this.btnPoint.Margin = new System.Windows.Forms.Padding(4);
             this.btnPoint.Name = "btnPoint";
             this.btnPoint.Size = new System.Drawing.Size(75, 23);
@@ -167,16 +179,16 @@ namespace ApontmentoWebAPI
             this.imageList.Images.SetKeyName(1, "Imagem 0x00001.png");
             this.imageList.Images.SetKeyName(2, "Imagem 0x00002.png");
             // 
-            // btnClean
+            // btnGetPRoduction
             // 
-            this.btnClean.Location = new System.Drawing.Point(287, 213);
-            this.btnClean.Margin = new System.Windows.Forms.Padding(4);
-            this.btnClean.Name = "btnClean";
-            this.btnClean.Size = new System.Drawing.Size(75, 23);
-            this.btnClean.TabIndex = 5;
-            this.btnClean.Text = "Limpar";
-            this.btnClean.UseVisualStyleBackColor = true;
-            this.btnClean.Click += new System.EventHandler(this.button1_Click);
+            this.btnGetPRoduction.Location = new System.Drawing.Point(280, 210);
+            this.btnGetPRoduction.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGetPRoduction.Name = "btnGetPRoduction";
+            this.btnGetPRoduction.Size = new System.Drawing.Size(75, 23);
+            this.btnGetPRoduction.TabIndex = 5;
+            this.btnGetPRoduction.Text = "Consultar";
+            this.btnGetPRoduction.UseVisualStyleBackColor = true;
+            this.btnGetPRoduction.Click += new System.EventHandler(this.btnGetProduction_Click);
             // 
             // lblTimeCounter
             // 
@@ -199,15 +211,107 @@ namespace ApontmentoWebAPI
             this.lblCycleTime.Size = new System.Drawing.Size(0, 15);
             this.lblCycleTime.TabIndex = 0;
             // 
+            // pnlGetProduction
+            // 
+            this.pnlGetProduction.Controls.Add(this.btnBack);
+            this.pnlGetProduction.Controls.Add(this.gridGetProduction);
+            this.pnlGetProduction.Location = new System.Drawing.Point(371, 0);
+            this.pnlGetProduction.Name = "pnlGetProduction";
+            this.pnlGetProduction.Size = new System.Drawing.Size(370, 240);
+            this.pnlGetProduction.TabIndex = 8;
+            // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(0, 0);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(20, 20);
+            this.btnBack.TabIndex = 6;
+            this.btnBack.Text = "<";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // gridGetProduction
+            // 
+            this.gridGetProduction.AllowUserToAddRows = false;
+            this.gridGetProduction.AllowUserToDeleteRows = false;
+            this.gridGetProduction.AllowUserToOrderColumns = true;
+            this.gridGetProduction.AutoGenerateColumns = false;
+            this.gridGetProduction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridGetProduction.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.orderDataGridViewTextBoxColumn,
+            this.ProductionCompleteDate,
+            this.quantityDataGridViewTextBoxColumn,
+            this.materialCodeDataGridViewTextBoxColumn,
+            this.cycleTimeDataGridViewTextBoxColumn});
+            this.gridGetProduction.DataSource = this.productionBindingSource;
+            this.gridGetProduction.Location = new System.Drawing.Point(0, 20);
+            this.gridGetProduction.Name = "gridGetProduction";
+            this.gridGetProduction.ReadOnly = true;
+            this.gridGetProduction.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.gridGetProduction.RowHeadersWidth = 20;
+            this.gridGetProduction.Size = new System.Drawing.Size(367, 220);
+            this.gridGetProduction.TabIndex = 0;
+            // 
+            // productionBindingSource
+            // 
+            this.productionBindingSource.DataSource = typeof(ApontmentoWebAPI.Classes.Production);
+            // 
+            // orderDataGridViewTextBoxColumn
+            // 
+            this.orderDataGridViewTextBoxColumn.DataPropertyName = "Order";
+            this.orderDataGridViewTextBoxColumn.HeaderText = "Order";
+            this.orderDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.orderDataGridViewTextBoxColumn.Name = "orderDataGridViewTextBoxColumn";
+            this.orderDataGridViewTextBoxColumn.ReadOnly = true;
+            this.orderDataGridViewTextBoxColumn.Width = 50;
+            // 
+            // ProductionCompleteDate
+            // 
+            this.ProductionCompleteDate.DataPropertyName = "ProductionCompleteDate";
+            this.ProductionCompleteDate.HeaderText = "ProductionCompleteDate";
+            this.ProductionCompleteDate.MinimumWidth = 6;
+            this.ProductionCompleteDate.Name = "ProductionCompleteDate";
+            this.ProductionCompleteDate.ReadOnly = true;
+            this.ProductionCompleteDate.Width = 150;
+            // 
+            // quantityDataGridViewTextBoxColumn
+            // 
+            this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
+            this.quantityDataGridViewTextBoxColumn.HeaderText = "Qnt.";
+            this.quantityDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
+            this.quantityDataGridViewTextBoxColumn.ReadOnly = true;
+            this.quantityDataGridViewTextBoxColumn.Width = 35;
+            // 
+            // materialCodeDataGridViewTextBoxColumn
+            // 
+            this.materialCodeDataGridViewTextBoxColumn.DataPropertyName = "MaterialCode";
+            this.materialCodeDataGridViewTextBoxColumn.HeaderText = "Material";
+            this.materialCodeDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.materialCodeDataGridViewTextBoxColumn.Name = "materialCodeDataGridViewTextBoxColumn";
+            this.materialCodeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.materialCodeDataGridViewTextBoxColumn.Width = 50;
+            // 
+            // cycleTimeDataGridViewTextBoxColumn
+            // 
+            this.cycleTimeDataGridViewTextBoxColumn.DataPropertyName = "CycleTime";
+            this.cycleTimeDataGridViewTextBoxColumn.HeaderText = "Time";
+            this.cycleTimeDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.cycleTimeDataGridViewTextBoxColumn.Name = "cycleTimeDataGridViewTextBoxColumn";
+            this.cycleTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cycleTimeDataGridViewTextBoxColumn.Width = 40;
+            // 
             // FormApontamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(370, 240);
+            this.ClientSize = new System.Drawing.Size(780, 321);
+            this.Controls.Add(this.pnlGetProduction);
             this.Controls.Add(this.lblCycleTime);
             this.Controls.Add(this.lblTimeCounter);
-            this.Controls.Add(this.btnClean);
+            this.Controls.Add(this.btnGetPRoduction);
             this.Controls.Add(this.picProduct);
             this.Controls.Add(this.nudQuantity);
             this.Controls.Add(this.lblProduct);
@@ -228,6 +332,9 @@ namespace ApontmentoWebAPI
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).EndInit();
+            this.pnlGetProduction.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridGetProduction)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productionBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,10 +353,19 @@ namespace ApontmentoWebAPI
         private System.Windows.Forms.PictureBox picProduct;
         private System.Windows.Forms.Timer btnTimer;
         private System.Windows.Forms.ImageList imageList;
-        private System.Windows.Forms.Button btnClean;
+        private System.Windows.Forms.Button btnGetPRoduction;
         private Label lblTimeCounter;
         private ToolTip toolTip1;
         private Label lblCycleTime;
+        private Panel pnlGetProduction;
+        private DataGridView gridGetProduction;
+        private BindingSource productionBindingSource;
+        private Button btnBack;
+        private DataGridViewTextBoxColumn orderDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn ProductionCompleteDate;
+        private DataGridViewTextBoxColumn quantityDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn materialCodeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn cycleTimeDataGridViewTextBoxColumn;
     }
 }
 

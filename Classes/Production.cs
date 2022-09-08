@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace ApontmentoWebAPI.Classes
@@ -10,6 +11,8 @@ namespace ApontmentoWebAPI.Classes
         public string Email { get; set; }
         [JsonProperty(propertyName: "order")]
         public string Order { get; set; }
+        [JsonProperty(propertyName: "date")]
+        public string ProductionCompleteDate { get; set; }
         [JsonProperty(propertyName: "productionDate")]
         public string ProductionDate { get; set; }
         [JsonProperty(propertyName: "productionTime")]
@@ -20,7 +23,7 @@ namespace ApontmentoWebAPI.Classes
         public string MaterialCode { get; set; }
         [JsonProperty(propertyName: "cycleTime")]
         public double CycleTime { get; set; }
-
-
+        [JsonProperty(propertyName: "productions")]
+        public List<Production> Productions { get; set; }
     }
 }

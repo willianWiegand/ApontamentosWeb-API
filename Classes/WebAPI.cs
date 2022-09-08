@@ -25,6 +25,12 @@ namespace ApontmentoWebAPI.Classes
                 case APIType.OrderList:
                     URL += "GetOrders";
                     break;
+
+                case APIType.ProductionList:
+                    URL += "GetProduction?email=willian.wiegand@gmail.com";
+                    break;
+
+
             }
 
         }
@@ -71,9 +77,30 @@ namespace ApontmentoWebAPI.Classes
                 + "\nDescrição: "
                 + msgReturn.Description;
             MessageBox.Show(stringReturn);
-
-
             return postReturn.IsSuccessStatusCode;
+        }
+
+        internal void GetProduction(DataGridView gridGetProduction)
+        {
+            var repply = client.GetAsync(URL).Result;
+            if (repply.IsSuccessStatusCode)
+            {
+                var response = repply.Content.ReadAsStringAsync().Result;
+                Production productionList = JsonConvert.DeserializeObject<Production>(response);
+                
+                var c = productionList.Productions.Count;
+                gridGetProduction.DataSource = productionList.Productions;
+
+                //for (int i = 0; i < c; i++)
+                //{
+                //    Production p.Productions[i] = productionList.Productions[i];
+                    
+                //}
+            }
+            else
+            {
+                MessageBox.Show("Erro ao obter resposta.");
+            }
         }
     }
 }

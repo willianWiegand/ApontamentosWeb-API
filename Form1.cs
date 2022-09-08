@@ -1,9 +1,7 @@
 ﻿using ApontmentoWebAPI.Classes;
-using Newtonsoft.Json;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace ApontmentoWebAPI
 {
@@ -15,10 +13,16 @@ namespace ApontmentoWebAPI
         private bool _runningTimer = false;
         public DateTime opSelectedInstant;
         public OrderList orderList = new OrderList();
-
         public FormApontamento()
         {
             InitializeComponent();
+            this.Size = new Size(380, 283);
+            pnlGetProduction.Location = new Point(0, 0);
+            pnlGetProduction.BringToFront();
+            pnlGetProduction.Visible = false;
+
+
+
 
         }
         //ao carregar o formulário preencher o Combobox com os dados da APIweb
@@ -42,7 +46,7 @@ namespace ApontmentoWebAPI
             picProduct.Image = imageList.Images[imageID];
             cbxMaterial.Items.Clear();
             int c = orderList.Orders[cbxOP.SelectedIndex].Materials.Count;
-            
+
             for (int i = 0; i < c; i++)
             {
                 string str = orderList.Orders[cbxOP.SelectedIndex].Materials[i].MaterialCode;
@@ -64,7 +68,7 @@ namespace ApontmentoWebAPI
             TimeSpan elapsedTime = dateNow.Subtract(_startTimer);
             lblTimeCounter.Text = "Decorridos " + elapsedTime.Seconds + "s";
             //limite reduzido para agilizar os testes, em operação normal retirar o /10
-            var limit = orderList.Orders[cbxOP.SelectedIndex].CycleTime / 10;
+            var limit = orderList.Orders[cbxOP.SelectedIndex].CycleTime;
 
             if (elapsedTime.TotalSeconds > limit)
             {
@@ -92,9 +96,14 @@ namespace ApontmentoWebAPI
             if (ok) ClearForm();
 
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void btnGetProduction_Click(object sender, EventArgs e)
         {
-            ClearForm();
+
+            pnlGetProduction.Visible = true;
+
+
+            WebAPI getProductionAPI = new WebAPI(APIType.ProductionList);
+            getProductionAPI.GetProduction(gridGetProduction);
         }
 
         public void ClearForm()
@@ -111,6 +120,10 @@ namespace ApontmentoWebAPI
             this.ProcessTabKey(true);
         }
 
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            pnlGetProduction.Visible = false;
+        }
 
     }
 }

@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace ApontmentoWebAPI.Classes
 {
-    public enum APIType { Production, OrderList };
+    public enum APIType { Production, OrderList, ProductionList};
 }

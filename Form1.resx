@@ -128,7 +128,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACg
-        hwQAAk1TRnQBSQFMAgEBAwEAASgBAAEoAQABlgEAAZYBAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFY
+        hwQAAk1TRnQBSQFMAgEBAwEAASABAQEgAQEBlgEAAZYBAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFY
         AQICAAGWAwABAQEAARgFAAGwAR4BBBEAEu4/7xDuAe0C7gHtAu4B7QHuAu0B7gLtAe4H7QHsAu0B7ALt
         AewB7QHsAesB7QLrAe0C6wHtAusB7QLrAe0C6wHtAusB7QLrAe0C6wHtAusB7QLrAe0C6wHtAusB7QLp
         Ae0C6QHtAukB7QLpAe0C6wHtAusB7QLrAe0C6wHuAusB7gLrAe4C6wHtAusB7gLrAe4C6wHuAu0B7wLt
@@ -5080,6 +5080,12 @@
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>293, 17</value>
+  </metadata>
+  <metadata name="ProductionCompleteDate.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="productionBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>422, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>61</value>
